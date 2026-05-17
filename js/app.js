@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const themeWipe = document.querySelector(".theme-wipe");
     const navLinks = document.querySelectorAll(".nav-links a");
     const themeLogos = document.querySelectorAll(".theme-logo");
+    const contactForm = document.querySelector(".contact-form");
     const revealElements = document.querySelectorAll(".reveal");
     const heroTitle = document.querySelector(".hero-title[data-typewriter]");
     const heroVisual = document.querySelector(".hero-visual");
@@ -99,6 +100,34 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.body.classList.remove("theme-transition");
                 themeToggle.disabled = false;
             }, 1380);
+        });
+    }
+
+    if (contactForm) {
+        contactForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            if (!contactForm.reportValidity()) {
+                return;
+            }
+
+            const formData = new FormData(contactForm);
+            const nombre = String(formData.get("nombre") || "").trim();
+            const email = String(formData.get("email") || "").trim();
+            const servicio = String(formData.get("servicio") || "").trim();
+            const mensaje = String(formData.get("mensaje") || "").trim();
+            const recipient = contactForm.dataset.email || "soporte@avorainc.com";
+            const subject = `Consulta Avora - ${servicio || "Nuevo proyecto"}`;
+            const body = [
+                `Nombre: ${nombre}`,
+                `Email: ${email}`,
+                `Servicio de interes: ${servicio}`,
+                "",
+                "Mensaje:",
+                mensaje || "Sin mensaje adicional.",
+            ].join("\n");
+
+            window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         });
     }
 
