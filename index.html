@@ -288,7 +288,7 @@
                     </figure>
                 </div>
 
-                <form class="contact-form reveal" data-email="soporte@avorainc.com" autocomplete="on">
+                <form class="contact-form reveal" action="/api/contact" method="post" autocomplete="on">
                     <div class="form-row">
                         <label class="form-group">
                             <span>Nombre</span>
@@ -314,8 +314,9 @@
                     </label>
                     <label class="form-group">
                         <span>Mensaje</span>
-                        <textarea name="mensaje" placeholder="&iquest;C&oacute;mo podemos ayudarte?" rows="5"></textarea>
+                        <textarea name="mensaje" placeholder="&iquest;C&oacute;mo podemos ayudarte?" rows="5" required></textarea>
                     </label>
+                    <p class="form-status" role="status" aria-live="polite"></p>
                     <button type="submit" class="btn btn-primary btn-block">Enviar consulta</button>
                 </form>
             </div>

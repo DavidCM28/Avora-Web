@@ -104,7 +104,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (contactForm) {
-        contactForm.addEventListener("submit", (event) => {
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const statusMessage = contactForm.querySelector(".form-status");
+        const defaultSubmitText = submitButton?.textContent || "Enviar consulta";
+
+        const setFormStatus = (message, type = "") => {
+            if (!statusMessage) return;
+
+            statusMessage.textContent = message;
+            statusMessage.dataset.status = type;
+        };
+
+        contactForm.addEventListener("submit", async (event) => {
             event.preventDefault();
 
             if (!contactForm.reportValidity()) {
@@ -112,22 +123,44 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const formData = new FormData(contactForm);
-            const nombre = String(formData.get("nombre") || "").trim();
-            const email = String(formData.get("email") || "").trim();
-            const servicio = String(formData.get("servicio") || "").trim();
-            const mensaje = String(formData.get("mensaje") || "").trim();
-            const recipient = contactForm.dataset.email || "soporte@avorainc.com";
-            const subject = `Consulta Avora - ${servicio || "Nuevo proyecto"}`;
-            const body = [
-                `Nombre: ${nombre}`,
-                `Email: ${email}`,
-                `Servicio de interes: ${servicio}`,
-                "",
-                "Mensaje:",
-                mensaje || "Sin mensaje adicional.",
-            ].join("\n");
+            const payload = {
+                nombre: String(formData.get("nombre") || "").trim(),
+                email: String(formData.get("email") || "").trim(),
+                servicio: String(formData.get("servicio") || "").trim(),
+                mensaje: String(formData.get("mensaje") || "").trim(),
+            };
 
-            window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = "Enviando...";
+            }
+
+            setFormStatus("Enviando tu consulta...", "loading");
+
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(payload),
+                });
+                const result = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                    throw new Error(result.message || "No pudimos enviar tu consulta. Intenta de nuevo.");
+                }
+
+                contactForm.reset();
+                setFormStatus("Consulta enviada. Te responderemos pronto.", "success");
+            } catch (error) {
+                setFormStatus(error.message || "No pudimos enviar tu consulta. Intenta de nuevo.", "error");
+            } finally {
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = defaultSubmitText;
+                }
+            }
         });
     }
 
