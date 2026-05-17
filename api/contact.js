@@ -1,4 +1,7 @@
-const RESEND_ENDPOINT = "https://api.resend.com/emails";
+const https = require("https");
+
+const RESEND_HOST = "api.resend.com";
+const RESEND_PATH = "/emails";
 const DEFAULT_FROM_EMAIL = "onboarding@resend.dev";
 const DEFAULT_TO_EMAIL = "soporte@avorainc.com";
 
@@ -9,6 +12,67 @@ const json = (res, statusCode, payload) => {
 };
 
 const sanitize = (value, maxLength) => String(value || "").trim().slice(0, maxLength);
+
+const parseBody = async (req) => {
+    if (req.body && typeof req.body === "object") {
+        return req.body;
+    }
+
+    if (typeof req.body === "string") {
+        return JSON.parse(req.body || "{}");
+    }
+
+    const chunks = [];
+
+    for await (const chunk of req) {
+        chunks.push(chunk);
+    }
+
+    const rawBody = Buffer.concat(chunks).toString("utf8");
+    return rawBody ? JSON.parse(rawBody) : {};
+};
+
+const postResendEmail = (apiKey, payload) =>
+    new Promise((resolve, reject) => {
+        const body = JSON.stringify(payload);
+        const request = https.request(
+            {
+                hostname: RESEND_HOST,
+                path: RESEND_PATH,
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${apiKey}`,
+                    "Content-Type": "application/json",
+                    "Content-Length": Buffer.byteLength(body),
+                },
+            },
+            (response) => {
+                const chunks = [];
+
+                response.on("data", (chunk) => chunks.push(chunk));
+                response.on("end", () => {
+                    const responseBody = Buffer.concat(chunks).toString("utf8");
+                    let data = {};
+
+                    try {
+                        data = responseBody ? JSON.parse(responseBody) : {};
+                    } catch (error) {
+                        data = { message: responseBody };
+                    }
+
+                    resolve({
+                        ok: response.statusCode >= 200 && response.statusCode < 300,
+                        statusCode: response.statusCode,
+                        data,
+                    });
+                });
+            }
+        );
+
+        request.on("error", reject);
+        request.write(body);
+        request.end();
+    });
 
 const escapeHtml = (value) =>
     value.replace(/[&<>"']/g, (character) => {
@@ -35,10 +99,19 @@ module.exports = async (req, res) => {
         return json(res, 500, { message: "El formulario no esta configurado todavia." });
     }
 
-    const nombre = sanitize(req.body?.nombre, 120);
-    const email = sanitize(req.body?.email, 180);
-    const servicio = sanitize(req.body?.servicio, 160);
-    const mensaje = sanitize(req.body?.mensaje, 3000);
+    let body = {};
+
+    try {
+        body = await parseBody(req);
+    } catch (error) {
+        console.error("Invalid contact form body", error);
+        return json(res, 400, { message: "No pudimos leer el formulario. Intenta de nuevo." });
+    }
+
+    const nombre = sanitize(body.nombre, 120);
+    const email = sanitize(body.email, 180);
+    const servicio = sanitize(body.servicio, 160);
+    const mensaje = sanitize(body.mensaje, 3000);
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!nombre || !emailPattern.test(email) || !mensaje) {
@@ -66,25 +139,17 @@ module.exports = async (req, res) => {
     `;
 
     try {
-        const response = await fetch(RESEND_ENDPOINT, {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${apiKey}`,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                from,
-                to,
-                reply_to: email,
-                subject,
-                text,
-                html,
-            }),
+        const response = await postResendEmail(apiKey, {
+            from,
+            to,
+            reply_to: email,
+            subject,
+            text,
+            html,
         });
-        const result = await response.json().catch(() => ({}));
 
         if (!response.ok) {
-            console.error("Resend error", result);
+            console.error("Resend error", response.statusCode, response.data);
             return json(res, 502, { message: "No pudimos enviar tu consulta. Intenta de nuevo." });
         }
 
