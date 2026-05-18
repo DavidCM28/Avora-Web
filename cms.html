@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CMS | Avora</title>
+    <meta name="robots" content="noindex" />
+
+    <link rel="icon" type="image/webp" href="assets/Avora logo web.webp" />
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/main.css?v=20260518-services" />
+  </head>
+  <body data-theme="dark">
+    <div class="page-ambient" aria-hidden="true"></div>
+    <canvas class="particle-field" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="theme-wipe" aria-hidden="true"></div>
+
+    <header id="main-header">
+      <nav class="container nav-shell" aria-label="Principal">
+        <a class="logo" href="index.html#hero" aria-label="Avora inicio">
+          <img src="assets/Logo avora dark rbg.webp" data-dark-src="assets/Logo avora dark rbg.webp" data-light-src="assets/Logo avora light rbg.webp" alt="Avora" class="header-logo theme-logo" />
+        </a>
+
+        <button class="mobile-menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+        </button>
+
+        <ul class="nav-links" id="nav-links">
+          <li><a href="servicios.html">Ver servicios</a></li>
+          <li><a href="proyectos.html">Ver proyectos</a></li>
+          <li>
+            <button class="theme-toggle" type="button" aria-label="Cambiar a modo claro" aria-pressed="false">
+              <span class="toggle-track">
+                <span class="toggle-thumb">
+                  <i class="fa-solid fa-moon toggle-icon toggle-moon" aria-hidden="true"></i>
+                  <i class="fa-solid fa-sun toggle-icon toggle-sun" aria-hidden="true"></i>
+                </span>
+              </span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="cms-section section-pad">
+        <div class="container cms-layout">
+          <div class="cms-copy reveal">
+            <div class="eyebrow">
+              <span></span>
+              CMS local
+            </div>
+            <h1>Administraci&oacute;n de contenido</h1>
+            <p class="tagline">Agrega y actualiza servicios y proyectos desde un solo panel local.</p>
+          </div>
+
+          <div class="cms-panel reveal">
+            <form class="contact-form cms-login-form" autocomplete="off">
+              <h2>Acceso</h2>
+              <label class="form-group">
+                <span>Password</span>
+                <input type="password" name="password" required placeholder="Password del CMS" />
+              </label>
+              <p class="form-status" aria-live="polite"></p>
+              <button class="btn btn-primary btn-block" type="submit">Entrar</button>
+            </form>
+
+            <div class="cms-tabs" hidden>
+              <div class="cms-tab-list" role="tablist" aria-label="Contenido editable">
+                <button class="cms-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="cms-panel-services" id="cms-tab-services" data-cms-tab="services">
+                  <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+                  Servicios
+                </button>
+                <button class="cms-tab" type="button" role="tab" aria-selected="false" aria-controls="cms-panel-projects" id="cms-tab-projects" data-cms-tab="projects">
+                  <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
+                  Proyectos
+                </button>
+              </div>
+
+              <div class="cms-tab-panel" role="tabpanel" id="cms-panel-services" aria-labelledby="cms-tab-services" data-cms-panel="services">
+                <section class="cms-manager">
+                  <div class="cms-manager-header">
+                    <div>
+                      <span class="section-kicker">Servicios actuales</span>
+                      <h2>Administrar servicios</h2>
+                    </div>
+                    <button class="btn btn-ghost btn-small cms-new-service" type="button">Nuevo servicio</button>
+                  </div>
+                  <div class="cms-service-list" aria-live="polite"></div>
+                </section>
+
+                <form class="contact-form cms-service-form">
+                  <input type="hidden" name="serviceId" />
+                  <h2>Nuevo servicio</h2>
+                  <div class="form-row">
+                    <label class="form-group">
+                      <span>Titulo</span>
+                      <input type="text" name="title" required maxlength="120" placeholder="E-commerce" />
+                    </label>
+                    <label class="form-group">
+                      <span>Icono Font Awesome</span>
+                      <input type="text" name="icon" required maxlength="80" placeholder="fa-cart-shopping" />
+                    </label>
+                  </div>
+                  <div class="form-row">
+                    <label class="form-group">
+                      <span>Categoria</span>
+                      <input type="text" name="category" required maxlength="100" placeholder="Venta digital" />
+                    </label>
+                    <label class="form-group">
+                      <span>Animacion</span>
+                      <select name="animation" required>
+                        <option value="orbit">Orbit</option>
+                        <option value="checkout">Checkout</option>
+                        <option value="stack">Stack</option>
+                        <option value="phone">Phone</option>
+                        <option value="network">Network</option>
+                        <option value="pulse">Pulse</option>
+                      </select>
+                    </label>
+                  </div>
+                  <label class="form-group">
+                    <span>Descripcion breve</span>
+                    <textarea name="summary" rows="3" required maxlength="220" placeholder="Resumen corto para la landing."></textarea>
+                  </label>
+                  <label class="form-group">
+                    <span>Descripcion completa</span>
+                    <textarea name="description" rows="5" required maxlength="1200" placeholder="Detalle del servicio para servicios.html."></textarea>
+                  </label>
+                  <div class="form-row">
+                    <label class="form-group">
+                      <span>Incluye</span>
+                      <textarea name="highlights" rows="5" required placeholder="Un punto por linea"></textarea>
+                    </label>
+                    <label class="form-group">
+                      <span>Entregables</span>
+                      <textarea name="deliverables" rows="5" required placeholder="Un entregable por linea"></textarea>
+                    </label>
+                  </div>
+                  <label class="form-group">
+                    <span>Etiquetas</span>
+                    <input type="text" name="tags" required maxlength="160" placeholder="Pagos, Envios, Inventario" />
+                  </label>
+                  <label class="cms-check">
+                    <input type="checkbox" name="featured" />
+                    <span>Destacar servicio en la landing.</span>
+                  </label>
+                  <p class="form-status" aria-live="polite"></p>
+                  <div class="cms-form-actions">
+                    <button class="btn btn-primary btn-block" type="submit">Guardar servicio</button>
+                    <button class="btn btn-ghost btn-block cms-cancel-service-edit" type="button" hidden>Cancelar edicion</button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="cms-tab-panel" role="tabpanel" id="cms-panel-projects" aria-labelledby="cms-tab-projects" data-cms-panel="projects" hidden>
+                <section class="cms-manager">
+                  <div class="cms-manager-header">
+                    <div>
+                      <span class="section-kicker">Proyectos actuales</span>
+                      <h2>Administrar portafolio</h2>
+                    </div>
+                    <button class="btn btn-ghost btn-small cms-new-project" type="button">Nuevo proyecto</button>
+                  </div>
+                  <div class="cms-project-list" aria-live="polite"></div>
+                </section>
+
+                <form class="contact-form cms-project-form" enctype="multipart/form-data">
+                  <input type="hidden" name="projectId" />
+                  <h2>Nuevo proyecto</h2>
+                  <div class="form-row">
+                    <label class="form-group">
+                      <span>Titulo</span>
+                      <input type="text" name="title" required maxlength="120" placeholder="Avora Loyalty" />
+                    </label>
+                    <label class="form-group">
+                      <span>Tipo</span>
+                      <input type="text" name="type" required maxlength="120" placeholder="Plataforma SaaS" />
+                    </label>
+                  </div>
+                  <label class="form-group">
+                    <span>Categoria</span>
+                    <select name="category" required>
+                      <option value="terceros">Proyecto a terceros</option>
+                      <option value="avora">Proyecto propio de Avora</option>
+                    </select>
+                  </label>
+                  <label class="form-group">
+                    <span>Descripcion</span>
+                    <textarea name="description" rows="4" required maxlength="900" placeholder="Que resuelve el proyecto y que valor entrega."></textarea>
+                  </label>
+                  <div class="form-row">
+                    <label class="form-group">
+                      <span>Enlace</span>
+                      <input type="text" name="url" required placeholder="https://... o proyectos.html" />
+                    </label>
+                    <label class="form-group">
+                      <span>Texto del enlace</span>
+                      <input type="text" name="linkLabel" maxlength="80" placeholder="Visitar sitio" />
+                    </label>
+                  </div>
+                  <div class="form-row">
+                    <label class="form-group">
+                      <span>Texto alternativo</span>
+                      <input type="text" name="alt" maxlength="160" placeholder="Logo o captura del proyecto" />
+                    </label>
+                    <label class="form-group">
+                      <span>Imagen</span>
+                      <input type="file" name="image" accept="image/png,image/jpeg,image/webp,image/svg+xml" required />
+                      <small class="cms-image-help">Obligatoria para proyectos nuevos. Al editar, dejala vacia para conservar la actual.</small>
+                    </label>
+                  </div>
+                  <label class="cms-check">
+                    <input type="checkbox" name="softBackground" />
+                    <span>Usar fondo suave para logos o personajes.</span>
+                  </label>
+                  <p class="form-status" aria-live="polite"></p>
+                  <div class="cms-form-actions">
+                    <button class="btn btn-primary btn-block" type="submit">Guardar proyecto</button>
+                    <button class="btn btn-ghost btn-block cms-cancel-edit" type="button" hidden>Cancelar edicion</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/app.js?v=20260518-services"></script>
+  </body>
+</html>

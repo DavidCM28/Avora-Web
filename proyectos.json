@@ -1,0 +1,41 @@
+[
+  {
+    "id": "mcss-parts",
+    "title": "MCSS Parts",
+    "type": "Sitio Corporativo",
+    "description": "Sitio institucional para promoción de refaccionaría de tracto camiones. Diseño completamente personalizado y profesional.",
+    "image": "assets/proyectos/mcss-parts-1779115660054.jpg",
+    "alt": "MCSS Parts",
+    "url": "https://mcssparts.vercel.app/",
+    "linkLabel": "Visitar MCSS parts",
+    "external": true,
+    "softBackground": true
+  },
+  {
+    "id": "avora-loyalty",
+    "title": "Avora Loyalty",
+    "type": "Plataforma SaaS",
+    "description": "Plataforma de fidelización para administrar recompensas, clientes, campañas y analítica comercial en tiempo real.",
+    "image": "assets/proyectos/avora-loyalty-1779114987896.png",
+    "alt": "Avora Loyalty",
+    "url": "https://loyalty.avorainc.com",
+    "linkLabel": "Visitar sitio",
+    "external": true,
+    "category": "avora",
+    "softBackground": true
+  },
+  {
+    "id": "avora-web",
+    "title": "Avora Web",
+    "type": "Sitio corporativo",
+    "description": "Sitio institucional para comunicar servicios, producto destacado, metodologia, equipo y contacto comercial de Avora.",
+    "image": "assets/Logo avora dark rbg.webp",
+    "lightImage": "assets/Logo avora light rbg.webp",
+    "alt": "Avora",
+    "url": "index.html",
+    "linkLabel": "Visitar sitio",
+    "external": false,
+    "category": "avora",
+    "softBackground": false
+  }
+]

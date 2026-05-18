@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proyectos Terminados | Avora</title>
+    <meta
+      name="description"
+      content="Explora proyectos terminados por Avora, con detalles de cada solucion y enlaces para visitar sus sitios."
+    />
+
+    <link rel="icon" type="image/webp" href="assets/Avora logo web.webp" />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/main.css?v=20260516-8" />
+  </head>
+  <body data-theme="dark">
+    <div class="page-ambient" aria-hidden="true"></div>
+    <canvas class="particle-field" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="theme-wipe" aria-hidden="true"></div>
+
+    <header id="main-header">
+      <nav class="container nav-shell" aria-label="Principal">
+        <a class="logo" href="index.html#hero" aria-label="Avora inicio">
+          <img
+            src="assets/Logo avora dark rbg.webp"
+            data-dark-src="assets/Logo avora dark rbg.webp"
+            data-light-src="assets/Logo avora light rbg.webp"
+            alt="Avora"
+            class="header-logo theme-logo"
+          />
+        </a>
+
+        <button
+          class="mobile-menu-btn"
+          type="button"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+        </button>
+
+        <ul class="nav-links" id="nav-links">
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="proyectos.html" aria-current="page">Proyectos</a></li>
+          <li><a href="index.html#productos">Producto</a></li>
+          <li><a href="index.html#metodo">M&eacute;todo</a></li>
+          <li>
+            <button
+              class="theme-toggle"
+              type="button"
+              aria-label="Cambiar a modo claro"
+              aria-pressed="false"
+            >
+              <span class="toggle-track">
+                <span class="toggle-thumb">
+                  <i
+                    class="fa-solid fa-moon toggle-icon toggle-moon"
+                    aria-hidden="true"
+                  ></i>
+                  <i
+                    class="fa-solid fa-sun toggle-icon toggle-sun"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <a href="index.html#contacto" class="btn btn-primary btn-small"
+              >Empezar proyecto</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="projects-hero section-pad">
+        <div class="container projects-hero-layout">
+          <div class="projects-hero-copy">
+            <div class="eyebrow reveal">
+              <span></span>
+              Proyectos terminados
+            </div>
+            <h1 class="reveal">Productos digitales listos para usarse.</h1>
+            <p class="tagline reveal">
+              Una vista clara de soluciones que ya construimos.
+            </p>
+          </div>
+
+          <div class="projects-hero-card reveal">
+            <img
+              src="assets/Verty/verty-celebrating.webp"
+              alt="Verty celebrando proyectos terminados"
+            />
+            <p>
+              Click en cualquier proyecto para ver que resuelve y abrir su
+              sitio.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="projects-section section-pad">
+        <div class="container">
+          <div class="projects-category reveal">
+            <div class="section-heading">
+              <div>
+                <span class="section-kicker">Proyectos a terceros</span>
+                <h2>Empresas que eligieron construir con Avora.</h2>
+              </div>
+              <p>
+                Soluciones entregadas para clientes que confiaron en nuestro
+                equipo para convertir necesidades reales en productos digitales
+                listos para operar.
+              </p>
+            </div>
+            <div
+              class="projects-grid"
+              data-projects-grid="terceros"
+              aria-label="Proyectos a terceros"
+            >
+              <p class="projects-empty">Cargando proyectos...</p>
+            </div>
+          </div>
+
+          <div class="projects-category reveal">
+            <div class="section-heading">
+              <div>
+                <span class="section-kicker">Proyectos Avora</span>
+                <h2>Tambien diseñamos nuestra propia presencia digital.</h2>
+              </div>
+              <p>
+                Nuestros productos y activos internos pasan por el mismo cuidado
+                estrategico, visual y tecnico que aplicamos a cada entrega para
+                clientes.
+              </p>
+            </div>
+            <div
+              class="projects-grid"
+              data-projects-grid="avora"
+              aria-label="Proyectos propios de Avora"
+            >
+              <p class="projects-empty">Cargando proyectos...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-cta section-pad">
+        <div class="container about-cta-inner reveal">
+          <div>
+            <span class="section-kicker">Siguiente entrega</span>
+            <h2>Sumemos el proximo proyecto terminado al portafolio.</h2>
+          </div>
+          <a href="index.html#contacto" class="btn btn-primary btn-large"
+            >Cotizar proyecto <span aria-hidden="true">&rarr;</span></a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer id="main-footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <img
+            src="assets/Logo avora dark rbg.webp"
+            data-dark-src="assets/Logo avora dark rbg.webp"
+            data-light-src="assets/Logo avora light rbg.webp"
+            alt="Avora"
+            class="footer-logo theme-logo"
+          />
+          <p>
+            Ingenier&iacute;a de software para productos digitales modernos.
+          </p>
+        </div>
+        <div>
+          <h4>Navegaci&oacute;n</h4>
+          <a href="servicios.html">Servicios</a>
+          <a href="nosotros.html">Nosotros</a>
+          <a href="proyectos.html">Proyectos</a>
+          <a href="index.html#productos">Producto</a>
+          <a href="index.html#contacto">Contacto</a>
+        </div>
+        <div>
+          <h4>Compa&ntilde;&iacute;a</h4>
+          <a href="#">Privacidad</a>
+          <a href="#">T&eacute;rminos</a>
+          <a href="cms.html">Acceso</a>
+          <a href="#">LinkedIn</a>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>&copy; 2026 Avora Engineering. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="js/app.js?v=20260516-8"></script>
+  </body>
+</html>

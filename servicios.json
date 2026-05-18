@@ -1,0 +1,140 @@
+[
+  {
+    "id": "landing-pages-sitios-web",
+    "title": "Landing Pages y Sitios Web",
+    "icon": "fa-display",
+    "category": "Presencia digital",
+    "summary": "Sitios claros, rapidos y profesionales para comunicar mejor y captar oportunidades.",
+    "description": "Disenamos y construimos presencia digital enfocada en conversion, confianza y velocidad. Cada sitio se plantea con estructura editorial, rendimiento tecnico y una experiencia visual cuidada para que tu marca se entienda desde el primer vistazo.",
+    "highlights": [
+      "Diseno UI/UX a medida",
+      "Formularios de contacto y WhatsApp",
+      "SEO tecnico y rendimiento",
+      "CMS y contenido editable cuando el proyecto lo requiere"
+    ],
+    "deliverables": [
+      "Arquitectura de contenido",
+      "Interfaz responsive",
+      "Integracion de contacto",
+      "Publicacion y configuracion base"
+    ],
+    "tags": ["Web", "SEO", "CMS"],
+    "animation": "orbit",
+    "featured": false
+  },
+  {
+    "id": "e-commerce",
+    "title": "E-commerce",
+    "icon": "fa-cart-shopping",
+    "category": "Venta digital",
+    "summary": "Tiendas preparadas para vender, administrar pedidos y conectar pagos, envios e inventario.",
+    "description": "Creamos tiendas en linea pensadas para operar de verdad: catalogos claros, flujos de compra confiables, administracion de pedidos y conexiones con las herramientas que ya usa el negocio.",
+    "highlights": [
+      "Catalogos, variantes y stock",
+      "Pasarelas de pago",
+      "Cuentas de usuario y correos transaccionales",
+      "Cupones, descuentos e integraciones logisticas"
+    ],
+    "deliverables": [
+      "Catalogo administrable",
+      "Checkout y pagos",
+      "Panel de pedidos",
+      "Configuracion comercial inicial"
+    ],
+    "tags": ["Pagos", "Envios", "Inventario"],
+    "animation": "checkout",
+    "featured": true
+  },
+  {
+    "id": "sistemas-saas",
+    "title": "Sistemas a Medida y SaaS",
+    "icon": "fa-layer-group",
+    "category": "Software operativo",
+    "summary": "Software propio para ordenar procesos, centralizar informacion y crecer con control.",
+    "description": "Construimos plataformas a medida para reemplazar hojas sueltas, procesos manuales y sistemas desconectados. El objetivo es crear una base operativa clara, con roles, datos confiables y flujos listos para escalar.",
+    "highlights": [
+      "CRM, paneles administrativos y dashboards",
+      "Roles, permisos y flujos operativos",
+      "Bases de datos y arquitectura escalable",
+      "Reportes, exportaciones e integraciones avanzadas"
+    ],
+    "deliverables": [
+      "Mapa funcional",
+      "Base de datos",
+      "Panel administrativo",
+      "APIs e integraciones"
+    ],
+    "tags": ["SaaS", "Dashboards", "APIs"],
+    "animation": "stack",
+    "featured": false
+  },
+  {
+    "id": "apps-moviles",
+    "title": "Apps Moviles",
+    "icon": "fa-mobile-screen-button",
+    "category": "Experiencia movil",
+    "summary": "Aplicaciones iOS y Android para productos que necesitan estar cerca del usuario.",
+    "description": "Desarrollamos apps moviles cuando el producto necesita acompanamiento en campo, acceso frecuente o una experiencia dedicada. Cuidamos prototipos, autenticacion, notificaciones e integracion con plataformas web.",
+    "highlights": [
+      "Apps iOS y Android",
+      "Experiencia de usuario y prototipos",
+      "Autenticacion, notificaciones y consumo de APIs",
+      "Publicacion y mantenimiento evolutivo"
+    ],
+    "deliverables": [
+      "Prototipo navegable",
+      "App responsive por plataforma",
+      "Conexion con backend",
+      "Preparacion para publicacion"
+    ],
+    "tags": ["iOS", "Android", "UX/UI"],
+    "animation": "phone",
+    "featured": false
+  },
+  {
+    "id": "infraestructura-tecnologica",
+    "title": "Infraestructura Tecnologica",
+    "icon": "fa-network-wired",
+    "category": "Operacion tecnica",
+    "summary": "Base tecnica conectada, segura y preparada para mantener activa la operacion.",
+    "description": "Disenamos, instalamos y damos mantenimiento a infraestructura para que la operacion trabaje con estabilidad: redes, servidores, camaras, respaldos y configuraciones alineadas al entorno real del negocio.",
+    "highlights": [
+      "Redes cableadas e inalambricas",
+      "Servidores y configuracion operativa",
+      "Camaras y sistemas de videovigilancia",
+      "Bases de datos, respaldos y continuidad"
+    ],
+    "deliverables": [
+      "Diagnostico tecnico",
+      "Diseno de red",
+      "Instalacion y configuracion",
+      "Documentacion operativa"
+    ],
+    "tags": ["Redes", "Servidores", "CCTV"],
+    "animation": "network",
+    "featured": false
+  },
+  {
+    "id": "mantenimiento-integraciones",
+    "title": "Mantenimiento e Integraciones",
+    "icon": "fa-screwdriver-wrench",
+    "category": "Mejora continua",
+    "summary": "Soporte, optimizacion y conexiones entre herramientas clave del negocio.",
+    "description": "Acompanamos sistemas existentes con mejoras tecnicas, monitoreo, migraciones e integraciones. Ideal para equipos que ya tienen tecnologia funcionando, pero necesitan hacerla mas estable, conectada y facil de operar.",
+    "highlights": [
+      "Hosting, dominios, SSL y monitoreo",
+      "Integraciones con CRM, ERP, facturacion o logistica",
+      "Migracion y limpieza de datos",
+      "Optimizacion, soporte y mejoras continuas"
+    ],
+    "deliverables": [
+      "Revision tecnica",
+      "Plan de mejoras",
+      "Integraciones priorizadas",
+      "Soporte evolutivo"
+    ],
+    "tags": ["Soporte", "Integraciones", "Datos"],
+    "animation": "pulse",
+    "featured": false
+  }
+]

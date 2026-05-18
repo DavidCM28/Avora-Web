@@ -10,7 +10,7 @@
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
-    <link rel="stylesheet" href="css/main.css?v=20260516-7">
+    <link rel="stylesheet" href="css/main.css?v=20260516-8">
 </head>
 <body data-theme="dark">
     <div class="page-ambient" aria-hidden="true"></div>
@@ -30,8 +30,9 @@
             </button>
 
             <ul class="nav-links" id="nav-links">
-                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="servicios.html">Servicios</a></li>
                 <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="proyectos.html">Proyectos</a></li>
                 <li><a href="#productos">Producto</a></li>
                 <li><a href="#metodo">M&eacute;todo</a></li>
                 <li>
@@ -87,7 +88,7 @@
                 <div class="section-kicker reveal">Especialidades</div>
                 <div class="section-heading reveal">
                     <h2>Servicios tecnol&oacute;gicos para construir, vender y operar mejor.</h2>
-                    <p>Trabajamos cada proyecto bajo cotizaci&oacute;n, definiendo alcance, prioridad y complejidad antes de construir.</p>
+                    <p>Una vista rapida de lo que podemos construir. El detalle completo vive en una pagina dedicada para explorar cada solucion con calma.</p>
                 </div>
 
                 <aside class="verty-note reveal" aria-label="Verty pensando en soluciones digitales">
@@ -95,120 +96,12 @@
                     <p>Verty nos ayuda a mirar cada proyecto con curiosidad antes de construir.</p>
                 </aside>
 
-                <div class="services-grid">
-                    <article class="service-card reveal">
-                        <div class="service-icon" aria-hidden="true">
-                            <i class="fa-solid fa-display"></i>
-                        </div>
-                        <h3>Landing Pages y Sitios Web</h3>
-                        <p>Presencia digital r&aacute;pida, clara y profesional para negocios que necesitan comunicar mejor y captar oportunidades.</p>
-                        <ul class="service-detail-list">
-                            <li>Dise&ntilde;o UI/UX a medida</li>
-                            <li>Formularios de contacto y WhatsApp</li>
-                            <li>SEO t&eacute;cnico y rendimiento</li>
-                            <li>CMS y contenido editable cuando el proyecto lo requiere</li>
-                        </ul>
-                        <div class="tech-tags">
-                            <span>Web</span>
-                            <span>SEO</span>
-                            <span>CMS</span>
-                        </div>
-                    </article>
+                <div class="services-grid services-grid-brief" data-services-grid="brief">
+                    <p class="projects-empty">Cargando servicios...</p>
+                </div>
 
-                    <article class="service-card featured-service reveal">
-                        <div class="service-icon" aria-hidden="true">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                        </div>
-                        <h3>E-commerce</h3>
-                        <p>Tiendas en l&iacute;nea preparadas para vender, administrar pedidos y conectar la operaci&oacute;n comercial con pagos, env&iacute;os e inventario.</p>
-                        <ul class="service-detail-list">
-                            <li>Cat&aacute;logos, variantes y stock</li>
-                            <li>Pasarelas de pago</li>
-                            <li>Cuentas de usuario y correos transaccionales</li>
-                            <li>Cupones, descuentos e integraciones log&iacute;sticas</li>
-                        </ul>
-                        <div class="tech-tags">
-                            <span>Pagos</span>
-                            <span>Env&iacute;os</span>
-                            <span>Inventario</span>
-                        </div>
-                    </article>
-
-                    <article class="service-card reveal">
-                        <div class="service-icon" aria-hidden="true">
-                            <i class="fa-solid fa-layer-group"></i>
-                        </div>
-                        <h3>Sistemas a Medida y SaaS</h3>
-                        <p>Software propio para ordenar procesos internos, centralizar informaci&oacute;n y crear plataformas que puedan crecer con el negocio.</p>
-                        <ul class="service-detail-list">
-                            <li>CRM, paneles administrativos y dashboards</li>
-                            <li>Roles, permisos y flujos operativos</li>
-                            <li>Bases de datos y arquitectura escalable</li>
-                            <li>Reportes, exportaciones e integraciones avanzadas</li>
-                        </ul>
-                        <div class="tech-tags">
-                            <span>SaaS</span>
-                            <span>Dashboards</span>
-                            <span>APIs</span>
-                        </div>
-                    </article>
-
-                    <article class="service-card reveal">
-                        <div class="service-icon" aria-hidden="true">
-                            <i class="fa-solid fa-mobile-screen-button"></i>
-                        </div>
-                        <h3>Apps M&oacute;viles</h3>
-                        <p>Desarrollamos aplicaciones m&oacute;viles cuando el producto necesita estar cerca del usuario, operar en campo o complementar una plataforma web.</p>
-                        <ul class="service-detail-list">
-                            <li>Apps iOS y Android</li>
-                            <li>Experiencia de usuario y prototipos</li>
-                            <li>Autenticaci&oacute;n, notificaciones y consumo de APIs</li>
-                            <li>Publicaci&oacute;n y mantenimiento evolutivo</li>
-                        </ul>
-                        <div class="tech-tags">
-                            <span>iOS</span>
-                            <span>Android</span>
-                            <span>UX/UI</span>
-                        </div>
-                    </article>
-
-                    <article class="service-card reveal">
-                        <div class="service-icon" aria-hidden="true">
-                            <i class="fa-solid fa-network-wired"></i>
-                        </div>
-                        <h3>Infraestructura Tecnol&oacute;gica</h3>
-                        <p>Dise&ntilde;amos, instalamos y damos mantenimiento a la base t&eacute;cnica que mantiene conectada y segura la operaci&oacute;n.</p>
-                        <ul class="service-detail-list">
-                            <li>Redes cableadas e inal&aacute;mbricas</li>
-                            <li>Servidores y configuraci&oacute;n operativa</li>
-                            <li>C&aacute;maras y sistemas de videovigilancia</li>
-                            <li>Bases de datos, respaldos y continuidad</li>
-                        </ul>
-                        <div class="tech-tags">
-                            <span>Redes</span>
-                            <span>Servidores</span>
-                            <span>CCTV</span>
-                        </div>
-                    </article>
-
-                    <article class="service-card reveal">
-                        <div class="service-icon" aria-hidden="true">
-                            <i class="fa-solid fa-screwdriver-wrench"></i>
-                        </div>
-                        <h3>Mantenimiento e Integraciones</h3>
-                        <p>Acompa&ntilde;amos sistemas existentes con mejoras, soporte, monitoreo y conexiones con herramientas clave del negocio.</p>
-                        <ul class="service-detail-list">
-                            <li>Hosting, dominios, SSL y monitoreo</li>
-                            <li>Integraciones con CRM, ERP, facturaci&oacute;n o log&iacute;stica</li>
-                            <li>Migraci&oacute;n y limpieza de datos</li>
-                            <li>Optimizaci&oacute;n, soporte y mejoras continuas</li>
-                        </ul>
-                        <div class="tech-tags">
-                            <span>Soporte</span>
-                            <span>Integraciones</span>
-                            <span>Datos</span>
-                        </div>
-                    </article>
+                <div class="section-actions reveal">
+                    <a href="servicios.html" class="btn btn-primary btn-large">Ver servicios a detalle <span aria-hidden="true">&rarr;</span></a>
                 </div>
             </div>
         </section>
@@ -331,8 +224,9 @@
             </div>
             <div>
                 <h4>Navegaci&oacute;n</h4>
-                <a href="#servicios">Servicios</a>
+                <a href="servicios.html">Servicios</a>
                 <a href="nosotros.html">Nosotros</a>
+                <a href="proyectos.html">Proyectos</a>
                 <a href="#productos">Producto</a>
                 <a href="#contacto">Contacto</a>
             </div>
@@ -340,6 +234,7 @@
                 <h4>Compa&ntilde;&iacute;a</h4>
                 <a href="#">Privacidad</a>
                 <a href="#">T&eacute;rminos</a>
+                <a href="cms.html">Acceso</a>
                 <a href="#">LinkedIn</a>
             </div>
         </div>
@@ -348,6 +243,6 @@
         </div>
     </footer>
 
-    <script src="js/app.js?v=20260516-7"></script>
+    <script src="js/app.js?v=20260516-8"></script>
 </body>
 </html>
