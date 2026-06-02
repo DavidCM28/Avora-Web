@@ -1,3 +1,5 @@
+require("./env");
+
 const https = require("https");
 
 const RESEND_HOST = "api.resend.com";
@@ -74,6 +76,47 @@ const postResendEmail = (apiKey, payload) =>
         request.end();
     });
 
+const verifyRecaptcha = (secretKey, token, remoteIp) =>
+    new Promise((resolve, reject) => {
+        const body = new URLSearchParams({
+            secret: secretKey,
+            response: token,
+        });
+
+        if (remoteIp) {
+            body.set("remoteip", remoteIp);
+        }
+
+        const request = https.request(
+            {
+                hostname: "www.google.com",
+                path: "/recaptcha/api/siteverify",
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Length": Buffer.byteLength(body.toString()),
+                },
+            },
+            (response) => {
+                const chunks = [];
+
+                response.on("data", (chunk) => chunks.push(chunk));
+                response.on("end", () => {
+                    try {
+                        const data = JSON.parse(Buffer.concat(chunks).toString("utf8") || "{}");
+                        resolve(data);
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            }
+        );
+
+        request.on("error", reject);
+        request.write(body.toString());
+        request.end();
+    });
+
 const escapeHtml = (value) =>
     value.replace(/[&<>"']/g, (character) => {
         const entities = {
@@ -94,9 +137,14 @@ module.exports = async (req, res) => {
     }
 
     const apiKey = process.env.RESEND_API_KEY;
+    const recaptchaSecretKey = process.env.RECAPTCHA_SECRET_KEY;
 
     if (!apiKey) {
         return json(res, 500, { message: "El formulario no esta configurado todavia." });
+    }
+
+    if (!recaptchaSecretKey) {
+        return json(res, 500, { message: "La validacion del formulario no esta configurada todavia." });
     }
 
     let body = {};
@@ -112,10 +160,34 @@ module.exports = async (req, res) => {
     const email = sanitize(body.email, 180);
     const servicio = sanitize(body.servicio, 160);
     const mensaje = sanitize(body.mensaje, 3000);
+    const recaptchaToken = sanitize(
+        body.recaptchaToken || body["g-recaptcha-response"],
+        4096
+    );
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!nombre || !emailPattern.test(email) || !mensaje) {
         return json(res, 400, { message: "Revisa tu nombre, email y mensaje." });
+    }
+
+    if (!recaptchaToken) {
+        return json(res, 400, { message: "Completa el captcha antes de enviar." });
+    }
+
+    try {
+        const recaptchaResult = await verifyRecaptcha(
+            recaptchaSecretKey,
+            recaptchaToken,
+            req.headers["x-forwarded-for"] || req.socket?.remoteAddress || ""
+        );
+
+        if (!recaptchaResult.success) {
+            console.error("reCAPTCHA validation failed", recaptchaResult);
+            return json(res, 400, { message: "No pudimos validar el captcha. Intenta de nuevo." });
+        }
+    } catch (error) {
+        console.error("reCAPTCHA verification error", error);
+        return json(res, 502, { message: "No pudimos validar el captcha. Intenta de nuevo." });
     }
 
     const to = process.env.CONTACT_TO_EMAIL || DEFAULT_TO_EMAIL;

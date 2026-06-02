@@ -135,7 +135,73 @@ document.addEventListener("DOMContentLoaded", () => {
   if (contactForm) {
     const submitButton = contactForm.querySelector('button[type="submit"]');
     const statusMessage = contactForm.querySelector(".form-status");
+    const recaptchaGroup = contactForm.querySelector("[data-recaptcha-group]");
+    const recaptchaWidget = contactForm.querySelector("[data-recaptcha-widget]");
     const defaultSubmitText = submitButton?.textContent || "Enviar consulta";
+    const embeddedRecaptchaSiteKey = String(
+      contactForm.dataset.recaptchaSiteKey || "",
+    ).trim();
+    let recaptchaWidgetId = null;
+    let recaptchaReady = false;
+
+    const waitForRecaptchaApi = () =>
+      new Promise((resolve, reject) => {
+        const maxAttempts = 80;
+        let attempts = 0;
+
+        const check = () => {
+          if (window.grecaptcha?.render) {
+            resolve(window.grecaptcha);
+            return;
+          }
+
+          attempts += 1;
+          if (attempts >= maxAttempts) {
+            reject(
+              new Error(
+                "No pudimos inicializar la validacion de seguridad. Intenta de nuevo.",
+              ),
+            );
+            return;
+          }
+
+          window.setTimeout(check, 100);
+        };
+
+        check();
+      });
+
+    const loadRecaptchaScript = () =>
+      new Promise((resolve, reject) => {
+        if (window.grecaptcha?.render) {
+          resolve(window.grecaptcha);
+          return;
+        }
+
+        const existingScript = document.querySelector(
+          'script[data-recaptcha-script="true"]',
+        );
+
+        const handleReady = () => {
+          waitForRecaptchaApi().then(resolve).catch(reject);
+        };
+
+        if (existingScript) {
+          existingScript.addEventListener("load", handleReady, { once: true });
+          existingScript.addEventListener("error", reject, { once: true });
+          handleReady();
+          return;
+        }
+
+        const script = document.createElement("script");
+        script.src = "https://www.google.com/recaptcha/api.js?render=explicit";
+        script.async = true;
+        script.defer = true;
+        script.dataset.recaptchaScript = "true";
+        script.addEventListener("load", handleReady, { once: true });
+        script.addEventListener("error", reject, { once: true });
+        document.head.appendChild(script);
+      });
 
     const setFormStatus = (message, type = "") => {
       if (!statusMessage) return;
@@ -144,10 +210,73 @@ document.addEventListener("DOMContentLoaded", () => {
       statusMessage.dataset.status = type;
     };
 
+    const getRecaptchaSiteKey = async () => {
+      if (embeddedRecaptchaSiteKey) {
+        return embeddedRecaptchaSiteKey;
+      }
+
+      const response = await fetch("/api/config", { cache: "no-store" });
+      const config = await response.json().catch(() => ({}));
+
+      if (!response.ok || !config.recaptchaSiteKey) {
+        throw new Error(
+          config.message ||
+            "No pudimos cargar la validacion de seguridad. Intenta mas tarde.",
+        );
+      }
+
+      return String(config.recaptchaSiteKey || "").trim();
+    };
+
+    const initializeRecaptcha = async () => {
+      if (!submitButton || !recaptchaGroup || !recaptchaWidget) return;
+
+      submitButton.disabled = true;
+      setFormStatus("Cargando validacion de seguridad...", "loading");
+
+      try {
+        const recaptchaSiteKey = await getRecaptchaSiteKey();
+        const grecaptcha = await loadRecaptchaScript();
+
+        recaptchaWidget.hidden = false;
+        recaptchaGroup.hidden = false;
+        recaptchaWidgetId = grecaptcha.render(recaptchaWidget, {
+          sitekey: recaptchaSiteKey,
+        });
+        recaptchaReady = true;
+        submitButton.disabled = false;
+        setFormStatus("", "");
+      } catch (error) {
+        recaptchaReady = false;
+        submitButton.disabled = true;
+        setFormStatus(
+          error.message ||
+            "No pudimos cargar la validacion de seguridad. Intenta mas tarde.",
+          "error",
+        );
+      }
+    };
+
+    initializeRecaptcha();
+
     contactForm.addEventListener("submit", async (event) => {
       event.preventDefault();
 
       if (!contactForm.reportValidity()) {
+        return;
+      }
+
+      if (!recaptchaReady || !window.grecaptcha || recaptchaWidgetId === null) {
+        setFormStatus(
+          "La validacion de seguridad aun no esta lista. Intenta de nuevo.",
+          "error",
+        );
+        return;
+      }
+
+      const recaptchaToken = window.grecaptcha.getResponse(recaptchaWidgetId);
+      if (!recaptchaToken) {
+        setFormStatus("Completa el captcha antes de enviar.", "error");
         return;
       }
 
@@ -157,6 +286,7 @@ document.addEventListener("DOMContentLoaded", () => {
         email: String(formData.get("email") || "").trim(),
         servicio: String(formData.get("servicio") || "").trim(),
         mensaje: String(formData.get("mensaje") || "").trim(),
+        recaptchaToken,
       };
 
       if (submitButton) {
@@ -184,8 +314,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         contactForm.reset();
+        window.grecaptcha.reset(recaptchaWidgetId);
         setFormStatus("Consulta enviada. Te responderemos pronto.", "success");
       } catch (error) {
+        window.grecaptcha.reset(recaptchaWidgetId);
         setFormStatus(
           error.message || "No pudimos enviar tu consulta. Intenta de nuevo.",
           "error",

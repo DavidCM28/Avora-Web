@@ -1,5 +1,5 @@
 {
   "scripts": {
-    "dev": "node server.js"
+    "dev": "node api/server.js"
   }
 }

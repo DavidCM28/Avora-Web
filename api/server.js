@@ -1,8 +1,11 @@
+require("./env");
+
 const crypto = require("crypto");
 const fs = require("fs");
 const fsp = require("fs/promises");
 const http = require("http");
 const path = require("path");
+const contactHandler = require("./contact");
 
 const root = path.join(__dirname, "..");
 const port = Number(process.env.PORT || 3000);
@@ -27,6 +30,15 @@ const sendJson = (res, statusCode, payload) => {
     "Content-Type": "application/json; charset=utf-8",
   });
   res.end(JSON.stringify(payload));
+};
+
+const sendPublicConfig = (res) => {
+  const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
+
+  return sendJson(res, 200, {
+    recaptchaSiteKey,
+    recaptchaEnabled: Boolean(recaptchaSiteKey),
+  });
 };
 
 const sanitizeText = (value, maxLength) =>
@@ -523,6 +535,14 @@ const cmsHandler = async (req, res) => {
 
     if (req.method === "POST" && requestUrl.pathname === "/api/cms/login") {
       return handleLogin(req, res);
+    }
+
+    if (req.method === "GET" && requestUrl.pathname === "/api/config") {
+      return sendPublicConfig(res);
+    }
+
+    if (req.method === "POST" && requestUrl.pathname === "/api/contact") {
+      return contactHandler(req, res);
     }
 
     if (req.method === "GET" && requestUrl.pathname === "/api/proyectos") {
